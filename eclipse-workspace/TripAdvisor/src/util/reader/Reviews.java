@@ -1,4 +1,4 @@
-package Main;
+package util.reader;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;

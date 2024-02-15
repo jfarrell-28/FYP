@@ -1,4 +1,4 @@
-package Main;
+package util.reader;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
@@ -9,6 +9,8 @@ import java.io.IOException;
 public class Hotels {
     public static void main(String[] args) {
         readCSV("C:\\Users\\Jobby\\Desktop\\College\\Final Year Project\\TripAdvisorDataset\\hotel.csv");
+        readCSV("C:\\Users\\Jobby\\Desktop\\College\\Final Year Project\\TripAdvisorDataset\\member.csv");
+        readCSV("C:\\Users\\Jobby\\Desktop\\College\\Final Year Project\\TripAdvisorDataset\\review.csv");
     }
 
     private static void readCSV(String fileName) {
