@@ -17,6 +17,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 import utill.Profile;
+import utill.UserItemMatrixBuilder;
 import utill.UserItemPair;
 import utill.Item;
 
@@ -28,12 +29,10 @@ public class DatasetReader {
     private Set<String> skippedMemberIds = new HashSet<>();
 
     public DatasetReader() {
-        // Initialize your data structures or perform any other setup if needed.
     }
 
     public void loadDataset(String directory) {
-        // Construct file paths using File.separator for better portability
-        String memberFilePath = directory + File.separator + "member.csv";
+        String memberFilePath = directory + File.separator + "members.csv";
         String hotelFilePath = directory + File.separator + "hotel.csv";
         String reviewFilePath = directory + File.separator + "reviews.csv";
 
@@ -51,21 +50,19 @@ public class DatasetReader {
             int lineNumber = 0;
             while ((line = br.readLine()) != null) {
                 lineNumber++;
-                System.out.println("Reading line " + lineNumber + ": " + line); // Debugging statement
+                //System.out.println("Reading line " + lineNumber + ": " + line); // Debugging statement
                 
                 StringTokenizer st = new StringTokenizer(line, ", \t\n\r\f");
 
-                // Check if the file is "member.csv" and handle it separately
-                if (filename.endsWith("member.csv")) {
-                    // Extract the member_id and add it to the set of skipped member IDs
+                if (filename.endsWith("members.csv")) {
                     String memberId = st.hasMoreTokens() ? st.nextToken() : "";
                     skippedMemberIds.add(memberId);
-                    continue; // Skip this line and move to the next one
+                    continue; 
                 }
 
-                if (st.countTokens() != 3) {
+                if (st.countTokens() != 4) {
                     System.out.println("Error reading from file \"" + filename + "\" at line " + lineNumber + ". Incorrect number of tokens. Line content: " + line);
-                    continue; // Skip this line and move to the next one
+                    continue; 
                 }
 
                 try {
@@ -76,7 +73,7 @@ public class DatasetReader {
                     // Check if userId or itemId is null (parsing failed)
                     if (userId == null || itemId == null) {
                         System.out.println("Error parsing data at line " + lineNumber + ". Skipping line. Line content: " + line);
-                        continue; // Skip this line and move to the next one
+                        continue;
                     }
 
                     // Convert userId and itemId to String
@@ -210,6 +207,33 @@ public class DatasetReader {
     public Set<String> getSkippedMemberIds() {
         return skippedMemberIds;
     }
+    
+    public Map<String, Map<String, Double>> buildUserItemMatrix() {
+        Map<String, Map<String, Double>> userItemMatrix = new HashMap<>();
+
+        // Iterate over user profiles
+        for (Map.Entry<String, Profile> entry : userProfileMap.entrySet()) {
+            String userId = entry.getKey();
+            Profile userProfile = entry.getValue();
+            Map<Integer, Double> ratings = userProfile.getRatingsAsMapInteger(); // Use the new method
+
+            // Iterate over ratings in the user profile
+            for (Map.Entry<Integer, Double> ratingEntry : ratings.entrySet()) {
+                Integer itemId = ratingEntry.getKey();
+                Double rating = ratingEntry.getValue();
+                String itemIdStr = String.valueOf(itemId);
+
+                // Check if the item exists in the item map
+                if (itemMap.containsKey(itemIdStr)) {
+                    // Add the rating to the user-item matrix
+                    userItemMatrix.computeIfAbsent(userId, k -> new HashMap<>()).put(itemIdStr, rating);
+                }
+            }
+        }
+
+        return userItemMatrix;
+    }
+
 
     public void printUserProfiles() {
         for (Map.Entry<String, Profile> entry : userProfileMap.entrySet()) {
@@ -236,9 +260,32 @@ public class DatasetReader {
             System.out.println("Item profiles loaded: " + itemProfiles.size());
             System.out.println("Test data loaded: " + testData.size());
             System.out.println("Items loaded: " + items.size());
+
+            // Build the user-item matrix
+            UserItemMatrixBuilder matrixBuilder = new UserItemMatrixBuilder(userProfiles, items);
+            Map<String, Map<String, Double>> userItemMatrix = matrixBuilder.getUserItemMatrix();
+
+            // Print user-item matrix
+            if (userItemMatrix != null) {
+                System.out.println("User-Item Matrix:");
+                for (Map.Entry<String, Map<String, Double>> entry : userItemMatrix.entrySet()) {
+                    String userId = entry.getKey();
+                    Map<String, Double> itemRatings = entry.getValue();
+                    System.out.println("User ID: " + userId);
+                    for (Map.Entry<String, Double> ratingEntry : itemRatings.entrySet()) {
+                        String itemId = ratingEntry.getKey();
+                        Double rating = ratingEntry.getValue();
+                        System.out.println("Item ID: " + itemId + ", Rating: " + rating);
+                    }
+                    System.out.println("----------------------------------------");
+                }
+            } else {
+                System.out.println("User-item matrix is null. Check the matrix building process.");
+            }
+        } else {
+            System.out.println("One or more datasets are null. Check the data loading process.");
         }
     }
-
 
 }
 

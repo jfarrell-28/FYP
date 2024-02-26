@@ -37,6 +37,11 @@ public class Profile {
     public int getSize() {
         return dataMapString.size();
     }
+    
+ // Method to get all ratings in the profile as map of integers to doubles
+    public Map<Integer, Double> getRatingsAsMapInteger() {
+        return new HashMap<>(dataMapInteger); // Return a copy to prevent modification of the internal map
+    }
 
     /**
      * @return true if the ID is in the profile
@@ -81,6 +86,16 @@ public class Profile {
      */
     public Set<String> getIds() {
         return dataMapString.keySet();
+    }
+    
+ // Method to add a rating to the profile
+    public void addRating(String itemId, double rating) {
+    	dataMapString.put(itemId, rating);
+    }
+
+    // Method to get all ratings in the profile
+    public Map<String, Double> getRatings() {
+        return new HashMap<>(dataMapString); // Return a copy to prevent modification of the internal map
     }
 
     /**
