@@ -234,24 +234,26 @@ public class DatasetReader {
 
 
 	
-    public static void main(String[] args) {
-        // Create an instance of DatasetReader
-        DatasetReader datasetReader = new DatasetReader("hotelsBase.csv", "reviewTraining.csv", "Reviews.csv");
-        // Load the dataset from the specified directory
-        datasetReader.loadDataset("C:\\Users\\Jobby\\Desktop\\College\\Final Year Project\\TripAdvisorDataset\\");
-
-        Map<Integer, Profile> userProfiles = datasetReader.getUserProfiles();
-        Map<Integer, Profile> itemProfiles = datasetReader.getItemProfiles();
-        Map<UserItemPair, Double> testData = datasetReader.getTestData();
-        Map<UserItemPair, Double> trainingData = datasetReader.getTrainingData();
-        Map<Integer, Item> items = datasetReader.getItems();
-
-        System.out.println("User profiles loaded: " + userProfiles.size());
-        System.out.println("Item profiles loaded: " + itemProfiles.size());
-        System.out.println("Test data loaded: " + testData.size());
-        System.out.println("Training data Loaded: " + trainingData.size());
-        System.out.println("Items loaded: " + items.size());
-    }
+	/*
+	 * public static void main(String[] args) { // Create an instance of
+	 * DatasetReader DatasetReader datasetReader = new
+	 * DatasetReader("hotelsBase.csv", "reviewTraining.csv", "Reviews.csv"); // Load
+	 * the dataset from the specified directory datasetReader.
+	 * loadDataset("C:\\Users\\Jobby\\Desktop\\College\\Final Year Project\\TripAdvisorDataset\\"
+	 * );
+	 * 
+	 * Map<Integer, Profile> userProfiles = datasetReader.getUserProfiles();
+	 * Map<Integer, Profile> itemProfiles = datasetReader.getItemProfiles();
+	 * Map<UserItemPair, Double> testData = datasetReader.getTestData();
+	 * Map<UserItemPair, Double> trainingData = datasetReader.getTrainingData();
+	 * Map<Integer, Item> items = datasetReader.getItems();
+	 * 
+	 * System.out.println("User profiles loaded: " + userProfiles.size());
+	 * System.out.println("Item profiles loaded: " + itemProfiles.size());
+	 * System.out.println("Test data loaded: " + testData.size());
+	 * System.out.println("Training data Loaded: " + trainingData.size());
+	 * System.out.println("Items loaded: " + items.size()); }
+	 */
 	 
 }
 
