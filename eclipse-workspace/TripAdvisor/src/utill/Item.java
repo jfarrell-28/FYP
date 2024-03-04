@@ -9,24 +9,38 @@ import java.util.Set;
 
 public class Item
 {
-	private String id; // the numeric ID of the item
+	private Integer id; // the numeric ID of the item
 	private String name; // the name of the item
 	private Set<String> genres; // a hash set containing genres
 	private Profile genomeScores; // a profile containing genome tag scores
+	
+	private String hotelId;
+	private Integer starRating;
+	private Double travellerRating;
+	private String reviewFor;
+	private Double ratingSum;
 	
 	/**
 	 * constructor - creates a new Item object
 	 * @param id - the item id
 	 * @param name - the item name
 	 */
-	public Item(final String id, final String name)
+	public Item(final Integer id, final String name)
 	{
 		this.id = id;
 		this.name = name;
 		this.genres = new HashSet<String>();
 		this.genomeScores = new Profile(id);
 	}
-
+	
+	public Item(final String hotelId, final int starRating, final double travellerRating, final String reviewFor, final double ratingSum) {
+	    this.hotelId = hotelId;
+	    this.starRating = starRating;
+	    this.travellerRating = travellerRating;
+	    this.reviewFor = reviewFor;
+	    this.ratingSum = ratingSum;
+	}
+	
 	/**
 	 * constructor - creates a new Item object
 	 * @param id - the item id
@@ -34,7 +48,7 @@ public class Item
 	 * @param genres - the set of genres associated with the item 
 	 * @param genomeScores - the genome tag scores for the item
 	 */
-	public Item(final String id, final String name, final Set<String> genres, final Profile genomeScores)
+	public Item(final Integer id, final String name, final Set<String> genres, final Profile genomeScores)
 	{
 		this.id = id;
 		this.name = name;
@@ -45,14 +59,14 @@ public class Item
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
 	/**
 	 * @param id - the id to set
 	 */
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

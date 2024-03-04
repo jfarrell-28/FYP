@@ -6,15 +6,15 @@ package utill;
 
 public class UserItemPair
 {
-	private String userId; // the numeric user ID
-	private String itemId; // the numeric item ID 
+	private Integer userId; // the numeric user ID
+	private Integer itemId; // the numeric item ID 
 	
 	/**
 	 * constructor - creates a new UserItemPair object
 	 * @param userId - the numeric user ID
 	 * @param itemId - the numeric item ID
 	 */
-	public UserItemPair(final String userId, final String itemId)
+	public UserItemPair(final Integer userId, final Integer itemId)
 	{
 		this.userId = userId;
 		this.itemId = itemId;
@@ -23,7 +23,7 @@ public class UserItemPair
 	/**
 	 * @returns the user ID
 	 */
-	public String getUserId()
+	public Integer getUserId()
 	{
 		return userId;
 	}
@@ -31,7 +31,7 @@ public class UserItemPair
 	/**
 	 * @returns the item ID
 	 */
-	public String getItemId()
+	public Integer getItemId()
 	{
 		return itemId;
 	}

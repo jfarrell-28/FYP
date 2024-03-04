@@ -2,7 +2,7 @@
  * Compute the rank score between two items based on item association
  */ 
 
-package alg.base.ranker;
+package alg.base.predictor;
 
 import util.reader.DatasetReader;
 

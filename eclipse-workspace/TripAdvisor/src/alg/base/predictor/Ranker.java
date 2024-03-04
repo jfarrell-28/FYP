@@ -4,7 +4,7 @@
  * Recommendations for item X are ranked based on this score.
  */
 
-package alg.base.ranker;
+package alg.base.predictor;
 
 import util.reader.DatasetReader;
 
